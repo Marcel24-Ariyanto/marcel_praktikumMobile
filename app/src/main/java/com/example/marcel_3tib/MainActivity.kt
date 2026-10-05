@@ -9,6 +9,7 @@ import com.example.marcel_3tib.databinding.ActivityMainBinding
 import android.util.Log
 import com.google.android.material.snackbar.Snackbar
 import android.content.Intent
+import com.example.marcel_3tib.pertemuan5.LimaActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class MainActivity : AppCompatActivity() {
@@ -61,5 +62,9 @@ class MainActivity : AppCompatActivity() {
         }
 
 //        p4
+
+        binding.btnToLima.setOnClickListener {
+            startActivity(Intent(this, LimaActivity::class.java))
+        }
     }
 }
