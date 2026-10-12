@@ -11,6 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.marcel_3tib.databinding.ActivityLoginBinding
 import android.content.Intent
+import androidx.appcompat.app.AlertDialog
 
 
 class LoginActivity : AppCompatActivity() {
@@ -27,22 +28,54 @@ class LoginActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-//        val tombolLogin : Button = findViewById(R.id.btnLogin)
-//        val username : EditText = findViewById(R.id.edtUsername)
-//        val password : EditText = findViewById(R.id.edtPassword)
+
+        //p6
+        val sharedPref = getSharedPreferences("user_pref", MODE_PRIVATE)
+//// Kondisi jika isLogin bernilai true
+//        val isLogin = sharedPref.getBoolean("isLogin", false)
+//        if (isLogin) {
+//            startActivity(Intent(this, MainActivity::class.java))
+//            finish()
+//            return
+//        } dipindahkan ke splash screen
+        //p6
         binding.btnLogin.setOnClickListener {
             val user = binding.edtUsername.text.toString()
             val pass = binding.edtPassword.text.toString()
 
-            Log.e("Hasil", "Username $user Password $pass")
-            Toast.makeText(this, "Username $user Password $pass", Toast.LENGTH_LONG).show()
-//p4
-            val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("username", user)
-            intent.putExtra("password", pass)
-            intent.putExtra("umur", 21)
-            startActivity(intent)
+//            Log.e("Hasil", "Username $user Password $pass")
+//            Toast.makeText(this, "Username $user Password $pass", Toast.LENGTH_LONG).show()
+////p4
+//            val intent = Intent(this, MainActivity::class.java)
+//            intent.putExtra("username", user)
+//            intent.putExtra("password", pass)
+//            intent.putExtra("umur", 21)
+//            startActivity(intent)
 //            p4
+
+        //p6
+
+
+
+            if (user.isNotEmpty() && user == pass) {
+                val editor = sharedPref.edit()
+                editor.putBoolean("isLogin", true)
+                editor.putString("username", user)
+                editor.apply()
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            } else {
+                AlertDialog.Builder(this)
+                    .setTitle("Login Gagal")
+                    .setMessage("Silahkan coba lagi")
+                    .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+                    .show()
+            }
+
+
+
+
         }
+
     }
 }
